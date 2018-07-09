@@ -1,0 +1,54 @@
+[X] no local var should start with x
+[X] opcode syntax aint assignment
+[X] Opcode tuple from FLOSS string
+[X] Opcode expansion (~= overloads)
+[X] use FLOSS to generate local variable names
+[X] terminal consts should not be a set of predetermined, fixed values
+[X] term ratio on tree generation doesn't make much sense anymore
+[X] neither does the terminal set
+[X] Elt is misleading, you actually have Opcode (Operator | Opcode) and constant (generators as they come with a type converter)
+[X] introduce arg ranges, ex (picking a function, int set) or (set amp, you want dbs) 
+[X] base arg range on var name
+[X] add arg range to FLOSS and use it
+[ ] implement checks to limit the impact on syntax errors in csound reference
+[X] ditch operators?
+[ ] freq: sample custom distribution using a rejection method
+
+<= above point are to be documented
+
+# type conversion
+http://floss.booktype.pro/csound/overview/
+
+
+# nomenclature, var prefixes
+https://csound.com/docs/manual/OrchNomen.html
+
+# to compute spectrograms
+# https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.spectrogram.html
+
+# how these spectrograms are to be compared?
+# spectrograms will be 2 matrices of the same size, so a diff? squared diff?
+# start simple plz
+
+Note trailing underscores to prevent name collisions (range, type)
+
+we did not include opcodes that have multiple outputs
+
+note use rejection sampling
+
+computing the similarity of 2 sounds
+
+TODO
+osc need function tables, we will use a convention here
+
+beware of CSound doc, it may lag behind,
+when a program doesn't compile, go run it directly in CSound
+
+prevent an individual from taking over by being cloned
+
+constraint based tree generation
+
+
+gif    tree side by side with spectrum, animated
+
+
