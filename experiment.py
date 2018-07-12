@@ -156,11 +156,14 @@ class ExperimentViz:
 		imageio.mimsave(path, padded_images)
 
 class Experiment:
-	def __init__(self, parms, viz=None):
+	def __init__(self, parms, tmp_dir, viz=None):
 		self.parms = parms
+		self.tmp_dir = tmp_dir
 		self.viz = viz
 
 	def initialize(self):
+		if not os.path.exists(self.tmp_dir):
+			os.makedirs(self.tmp_dir)
 		times, _, self.ref_spectrum = spectrogram_from_file(self.parms.file)
 		self.audio_duration = times[-1]
 		self.fitness_over_time = np.zeros((self.parms.num_generations, self.parms.selected_population_size))
@@ -184,7 +187,7 @@ class Experiment:
 			self.parms.selected_population_size, 
 			self.ref_spectrum, 
 			self.audio_duration, 
-			self.parms.complexity_factor, 'tmp')
+			self.parms.complexity_factor, self.tmp_dir)
 		if self.viz is not None:
 			self.viz.update(self.population)
 		return [i.fitness for i in self.population]
@@ -195,7 +198,7 @@ class Experiment:
 			os.makedirs(dir_name)
 		if self.viz is not None:
 			self.viz.save(os.path.join(dir_name, 'anim.gif'))
-		clean_dir('tmp')
+		clean_dir(self.tmp_dir)
 		# render best candidate in output folder
 		processes = render_individuals(self.population[:1], self.audio_duration, dir_name)
 		wait_for_processes_completion(processes)
@@ -217,16 +220,19 @@ parms = ExperimentParms(
 	file='clap.wav',
 	intern_op_set=intern_op_set, 
 	term_op_set=term_op_set,
-	num_generations=10,
-	init_population_size=6,
-	selected_population_size=6,
-	max_depth=5,
+	num_generations=2,
+	init_population_size=12,
+	selected_population_size=12,
+	max_depth=4,
 	terminal_likelyhood=0.5,
 	lerp_factor=0.2,
 	complexity_factor=0.4)
 
-Experiment(parms, ExperimentViz('tmp')).run()
+# generate a vizualisation gif:
+# Experiment(parms, 'tmp', ExperimentViz('tmp')).run()
 
+# no viz:
+Experiment(parms, 'tmp').run()
 
 
 

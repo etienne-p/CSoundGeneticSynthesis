@@ -6,7 +6,7 @@ log.txt
 *.orc
 *.sco
 /tmp
-/output
+/output*
 #tmp.*
 tmp*.*
 tmp*
